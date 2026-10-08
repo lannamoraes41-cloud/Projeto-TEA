@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - TEAjuda</title>
+</head>
+
+<body>
+
+    <!-- LADO ESQUERDO: APRESENTAÇÃO -->
+    <aside>
+
+        <header>
+            <h1>TEAjuda</h1>
+            <p>Onde dúvidas encontram acolhimento.</p>
+        </header>
+
+        <h3>Juntos por mais compreensão e oportunidades</h3>
+
+        <ul>
+            <li>Informação</li>
+            <li>Apoio</li>
+            <li>Conexão</li>
+            <li>Inclusão</li>
+        </ul>
+
+        <p>
+            Mais respeito, mais empatia,
+            mais inclusão, mais vida.
+        </p>
+
+        <!-- Aqui colocaremos as imagens do protótipo -->
+
+    </aside>
+
+
+    <!-- LADO DIREITO: CADASTRO -->
+    <main>
+
+        <section>
+
+            <h2>Crie sua conta</h2>
+            <p>Faça parte da nossa rede de apoio.</p>
+
+            <form id="formCadastro">
+
+                <!-- NOME COMPLETO -->
+                <div>
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome"
+                           name="nome"
+                           placeholder="Digite seu nome completo"
+                           autocomplete="name"
+                           required>
+                </div>
+
+                <!-- TELEFONE -->
+                <div>
+                    <label for="telefone">Telefone (opcional)</label>
+                    <input type="tel" id="telefone"
+                           name="telefone"
+                           placeholder="(00) 00000-0000"
+                           autocomplete="tel">
+                </div>
+
+                <!-- E-MAIL -->
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email"
+                           name="email"
+                           placeholder="exemplo@email.com"
+                           autocomplete="email"
+                           required>
+                </div>
+
+                <!-- TIPO DE USUÁRIO -->
+                <div>
+                    <label for="tipo">Tipo de usuário</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Selecione</option>
+                        <option value="pessoa-tea">Pessoa com TEA</option>
+                        <option value="familiar">Familiar</option>
+                        <option value="profissional">Profissional</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <!-- SENHA -->
+                <div>
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha"
+                           name="senha"
+                           placeholder="Crie uma senha"
+                           autocomplete="new-password"
+                           minlength="8"
+                           required>
+                </div>
+
+                <!-- COMO CONHECEU -->
+                <div>
+                    <label for="origem">
+                        Como nos conheceu? (opcional)
+                    </label>
+                    <select id="origem" name="origem">
+                        <option value="">Selecione</option>
+                        <option value="redes-sociais">Redes sociais</option>
+                        <option value="amigos">Amigos ou familiares</option>
+                        <option value="internet">Pesquisa na internet</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <!-- DATA DE NASCIMENTO -->
+                <div>
+                    <label for="nascimento">
+                        Data de nascimento
+                    </label>
+                    <input type="date" id="nascimento"
+                           name="nascimento"
+                           required>
+                </div>
+
+                <!-- OBSERVAÇÕES -->
+                <div>
+                    <label for="observacao">
+                        Alguma observação? (opcional)
+                    </label>
+                    <textarea id="observacao"
+                              name="observacao"
+                              rows="4"
+                              placeholder="Conte um pouco sobre você..."></textarea>
+                </div>
+
+                <!-- CIDADE -->
+                <div>
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade"
+                           name="cidade"
+                           placeholder="Digite sua cidade"
+                           required>
+                </div>
+
+                <!-- TERMOS -->
+                <div>
+                    <input type="checkbox" id="termos"
+                           name="termos" required>
+
+                    <label for="termos">
+                        Concordo com os
+                        <a href="#">Termos de Uso</a>
+                        e
+                        <a href="#">Política de Privacidade</a>
+                    </label>
+                </div>
+
+                <!-- BOTÃO CADASTRAR -->
+                <button type="submit">
+                    Cadastrar
+                </button>
+
+            </form>
+
+            <p>Já tem uma conta?</p>
+
+            <a href="#">Entrar</a>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
