@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Comunidade | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="comunidade.css">
+    <script src="comunidade.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+
+        <div class="logo">
+            <div class="simbolo">💙</div>
+            <h1><span>TEA</span>ajuda</h1>
+            <small>
+                Onde dúvidas encontram acolhimento.
+            </small>
+        </div>
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+
+            <a href="comunidade.html" class="ativo">
+                ♧ &nbsp; Comunidade
+            </a>
+
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html">⚙ &nbsp; Configurações</a>
+
+            <hr>
+
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="principal comunidade-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="comunidade-cabecalho">
+            <span class="etiqueta">Espaço de acolhimento</span>
+            <h2>Nossa Comunidade 💙</h2>
+
+            <p>
+                Compartilhe suas experiências,
+                faça conexões e encontre apoio.
+                Aqui, cada história merece ser ouvida.
+            </p>
+        </section>
+
+        <section class="comunidade-conteudo">
+
+            <!-- CRIAR PUBLICAÇÃO -->
+            <div class="publicacao-formulario">
+                <h3>Compartilhe com a comunidade</h3>
+
+                <form id="form-publicacao">
+                    <label for="texto-publicacao">
+                        O que você gostaria de compartilhar?
+                    </label>
+
+                    <textarea
+                        id="texto-publicacao"
+                        placeholder="Escreva sua mensagem..."
+                        maxlength="1000"
+                        required
+                    ></textarea>
+
+                    <div class="form-rodape">
+                        <span id="contador">0/1000</span>
+                        <button type="submit">
+                            Publicar
+                        </button>
+                    </div>
+                </form>
+
+                <p id="mensagem-publicacao"
+                   role="status"
+                   aria-live="polite"></p>
+            </div>
+
+            <!-- MURAL -->
+            <section class="mural">
+                <div class="mural-titulo">
+                    <h3>Publicações da comunidade</h3>
+                    <span id="total-publicacoes"></span>
+                </div>
+
+                <div id="lista-publicacoes"></div>
+            </section>
+
+        </section>
+
+        <footer>
+            Cada história inspira. Cada pessoa importa. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
