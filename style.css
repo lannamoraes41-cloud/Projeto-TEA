@@ -50,6 +50,8 @@ body {
 
 /* PÁGINA INICIAL */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 :root {
   --azul: #0755b8;
   --azul-vivo: #087bfa;
