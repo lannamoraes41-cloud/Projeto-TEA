@@ -1,0 +1,198 @@
+
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #073b8e;
+}
+
+.pagina-publica {
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #e8f5ff,
+        #ffffff,
+        #fff4df
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+/* MARCA */
+
+.marca {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.marca h1 {
+    font-size: 42px;
+    color: #073b8e;
+}
+
+.marca h1 span {
+    color: #1688ed;
+}
+
+.marca p {
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* PÁGINA INICIAL */
+
+.apresentacao {
+    background: white;
+    max-width: 750px;
+    width: 100%;
+    padding: 55px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 8px 30px #003b9115;
+}
+
+.apresentacao-conteudo h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.apresentacao-conteudo p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.mensagem {
+    color: #087bfa;
+    font-weight: bold;
+}
+
+/* BOTÕES */
+
+.botao {
+    display: inline-block;
+    background: #087bfa;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 45px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.botao:hover {
+    background: #005bc5;
+}
+
+/* LOGIN */
+
+.login-container {
+    background: white;
+    width: 100%;
+    max-width: 440px;
+    padding: 45px;
+    border-radius: 22px;
+    box-shadow: 0 8px 30px #003b9115;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#form-login label {
+    font-weight: bold;
+}
+
+#form-login input {
+    padding: 14px;
+    border: 1px solid #ccd8e8;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+#form-login button {
+    margin-top: 12px;
+}
+
+.mensagem-erro {
+    color: #b42318;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.links-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.links-login a {
+    color: #087bfa;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .apresentacao,
+    .login-container {
+        padding: 30px 20px;
+    }
+
+    .apresentacao-conteudo h2 {
+        font-size: 26px;
+    }
+}
+
+/* CADASTRO DE USUÁRIOS */
+
+#form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#form-cadastro label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #073b8e;
+}
+
+#form-cadastro input {
+    padding: 14px;
+    border: 1px solid #ccd8e8;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+#form-cadastro input:focus {
+    border-color: #087bfa;
+    box-shadow: 0 0 0 3px #087bfa20;
+}
+
+#form-cadastro button {
+    margin-top: 12px;
+    width: 100%;
+}
+
+#form-cadastro .mensagem-erro {
+    text-align: center;
+}
