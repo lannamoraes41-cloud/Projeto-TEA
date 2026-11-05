@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Recuperar senha | TEAjuda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="pagina-publica">
+
+    <main class="login-container">
+
+        <div class="marca">
+            <h1><span>TEA</span>ajuda</h1>
+            <p>Onde dúvidas encontram acolhimento.</p>
+        </div>
+
+        <h2>Recuperar minha senha</h2>
+
+        <p class="texto-recuperacao">
+            Esqueceu sua senha? Não se preocupe.
+            Informe seu e-mail para solicitar
+            a recuperação da sua conta.
+        </p>
+
+        <form id="form-recuperacao">
+
+            <label for="email-recuperacao">
+                E-mail cadastrado
+            </label>
+
+            <input
+                type="email"
+                id="email-recuperacao"
+                placeholder="Digite seu e-mail"
+                autocomplete="email"
+                required
+            >
+
+            <button type="submit" class="botao">
+                Recuperar senha
+            </button>
+
+        </form>
+
+        <p id="mensagem-recuperacao"
+           class="mensagem-recuperacao"
+           role="status"
+           aria-live="polite"></p>
+
+        <div class="links-login">
+            <a href="login.html">
+                ← Voltar para o login
+            </a>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
