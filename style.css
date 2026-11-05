@@ -196,3 +196,48 @@ body {
 #form-cadastro .mensagem-erro {
     text-align: center;
 }
+
+/* RECUPERAÇÃO DE SENHA */
+
+.texto-recuperacao {
+    text-align: center;
+    color: #42649a;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+#form-recuperacao {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#form-recuperacao label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#form-recuperacao input {
+    padding: 14px;
+    border: 1px solid #ccd8e8;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+#form-recuperacao input:focus {
+    outline: 2px solid #087bfa;
+    outline-offset: 2px;
+}
+
+#form-recuperacao button {
+    margin-top: 10px;
+}
+
+.mensagem-recuperacao {
+    text-align: center;
+    color: #2874cc;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 18px;
+}
