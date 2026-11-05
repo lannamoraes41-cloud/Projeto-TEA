@@ -1,0 +1,261 @@
+
+/* PÁGINA COMUNIDADE */
+
+.comunidade-principal {
+    min-height: 100vh;
+}
+
+.comunidade-cabecalho {
+    max-width: 850px;
+    margin: 35px auto 30px;
+}
+
+.etiqueta {
+    display: inline-block;
+    background: #e2f2ff;
+    color: #087bfa;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.comunidade-cabecalho h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 15px;
+}
+
+.comunidade-cabecalho p {
+    color: #42649a;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.comunidade-conteudo {
+    max-width: 850px;
+    margin: auto;
+}
+
+/* FORMULÁRIO */
+
+.publicacao-formulario {
+    background: white;
+    padding: 30px;
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+    box-shadow: 0 4px 18px #003b910a;
+}
+
+.publicacao-formulario h3 {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+#form-publicacao {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#form-publicacao label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#texto-publicacao {
+    width: 100%;
+    min-height: 135px;
+    resize: vertical;
+    padding: 16px;
+    border: 1px solid #ccd8e8;
+    border-radius: 12px;
+    font: inherit;
+    color: #073b8e;
+    line-height: 1.5;
+}
+
+#texto-publicacao:focus {
+    outline: 2px solid #087bfa;
+    outline-offset: 2px;
+}
+
+.form-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contador {
+    font-size: 13px;
+    color: #7084a3;
+}
+
+.form-rodape button {
+    border: none;
+    background: #087bfa;
+    color: white;
+    border-radius: 30px;
+    padding: 13px 30px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.form-rodape button:hover {
+    background: #005bc5;
+}
+
+#mensagem-publicacao {
+    font-size: 14px;
+    margin-top: 12px;
+    color: #087bfa;
+}
+
+/* MURAL */
+
+.mural {
+    margin-top: 35px;
+}
+
+.mural-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mural-titulo h3 {
+    font-size: 22px;
+}
+
+#total-publicacoes {
+    font-size: 13px;
+    color: #7084a3;
+}
+
+#lista-publicacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.publicacao {
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 3px 12px #003b9108;
+}
+
+.publicacao-autor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.autor-avatar {
+    width: 45px;
+    height: 45px;
+    background: #e2f2ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.autor-dados {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.autor-dados strong {
+    font-size: 15px;
+}
+
+.autor-dados small {
+    color: #7084a3;
+}
+
+.publicacao-texto {
+    color: #344d75;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    margin-bottom: 20px;
+}
+
+.publicacao-acoes {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid #edf1f7;
+    padding-top: 15px;
+}
+
+.publicacao-acoes button {
+    background: transparent;
+    border: none;
+    color: #42649a;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.publicacao-acoes button:hover,
+.publicacao-acoes button.curtido {
+    color: #087bfa;
+}
+
+.comentarios {
+    margin-top: 15px;
+    border-top: 1px solid #edf1f7;
+    padding-top: 15px;
+}
+
+.comentario {
+    background: #f2f8ff;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: #344d75;
+    overflow-wrap: anywhere;
+}
+
+.form-comentario {
+    display: flex;
+    gap: 10px;
+}
+
+.form-comentario input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccd8e8;
+    border-radius: 9px;
+}
+
+.form-comentario button {
+    background: #087bfa;
+    border: none;
+    color: white;
+    border-radius: 9px;
+    padding: 0 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 650px) {
+    .publicacao-formulario,
+    .publicacao {
+        padding: 20px;
+    }
+
+    .form-comentario {
+        flex-direction: column;
+    }
+
+    .form-comentario button {
+        padding: 12px;
+    }
+}
