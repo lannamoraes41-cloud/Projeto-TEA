@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dúvidas | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="duvidas.css">
+
+    <script src="duvidas.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+
+        <div class="logo">
+            <div class="simbolo">💙</div>
+            <h1><span>TEA</span>ajuda</h1>
+            <small>
+                Onde dúvidas encontram acolhimento.
+            </small>
+        </div>
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html" class="ativo">
+                ☏ &nbsp; Dúvidas
+            </a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html">⚙ &nbsp; Configurações</a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="principal duvidas-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="duvidas-cabecalho">
+            <span class="etiqueta-duvidas">
+                Perguntas e respostas
+            </span>
+
+            <h2>Central de Dúvidas 💙</h2>
+
+            <p>
+                Nenhuma pergunta é pequena demais.
+                Compartilhe suas dúvidas e encontre
+                apoio em nossa comunidade.
+            </p>
+        </section>
+
+        <!-- PESQUISA -->
+        <section class="duvidas-conteudo">
+
+            <div class="barra-pesquisa">
+                <label for="pesquisar-duvidas">
+                    Pesquisar dúvidas
+                </label>
+
+                <input
+                    type="search"
+                    id="pesquisar-duvidas"
+                    placeholder="Pesquise por uma palavra ou assunto..."
+                >
+            </div>
+
+            <!-- NOVA PERGUNTA -->
+            <section class="nova-duvida">
+                <h3>Faça sua pergunta</h3>
+
+                <form id="form-duvida">
+
+                    <label for="titulo-duvida">
+                        Título da pergunta
+                    </label>
+
+                    <input
+                        type="text"
+                        id="titulo-duvida"
+                        placeholder="Ex.: Como organizar uma rotina?"
+                        maxlength="120"
+                        required
+                    >
+
+                    <label for="categoria-duvida">
+                        Categoria
+                    </label>
+
+                    <select id="categoria-duvida" required>
+                        <option value="">
+                            Selecione uma categoria
+                        </option>
+                        <option value="Rotina">Rotina</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Comportamento">
+                            Comportamento
+                        </option>
+                        <option value="Direitos">Direitos</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+
+                    <label for="descricao-duvida">
+                        Descreva sua dúvida
+                    </label>
+
+                    <textarea
+                        id="descricao-duvida"
+                        placeholder="Conte um pouco mais sobre sua pergunta..."
+                        maxlength="1500"
+                        required
+                    ></textarea>
+
+                    <button type="submit">
+                        Publicar pergunta
+                    </button>
+                </form>
+
+                <p id="mensagem-duvida"
+                   role="status"
+                   aria-live="polite"></p>
+            </section>
+
+            <!-- LISTAGEM -->
+            <section class="perguntas-secao">
+
+                <div class="perguntas-cabecalho">
+                    <h3>Perguntas da comunidade</h3>
+                    <span id="total-duvidas"></span>
+                </div>
+
+                <div id="lista-duvidas"></div>
+
+            </section>
+
+        </section>
+
+        <footer>
+            Compartilhar conhecimento também é acolher. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
