@@ -1,0 +1,248 @@
+
+/* TEAJUDA - PÁGINA CONTEÚDOS */
+
+.conteudos-principal {
+    min-height: 100vh;
+}
+
+.conteudos-cabecalho,
+.conteudos-area {
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.conteudos-cabecalho {
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+.etiqueta-conteudos {
+    display: inline-block;
+    background: #e2f2ff;
+    color: #087bfa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.conteudos-cabecalho h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 15px;
+}
+
+.conteudos-cabecalho p {
+    color: #42649a;
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 750px;
+}
+
+/* PESQUISA */
+
+.pesquisa-conteudos {
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 22px;
+}
+
+.pesquisa-conteudos label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #073b8e;
+}
+
+.pesquisa-conteudos input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccd8e8;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.pesquisa-conteudos input:focus {
+    outline: 2px solid #087bfa;
+    outline-offset: 2px;
+}
+
+/* FILTROS */
+
+.filtros-conteudos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.filtro {
+    border: 1px solid #d6e4f5;
+    background: white;
+    color: #42649a;
+    border-radius: 25px;
+    padding: 11px 17px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filtro:hover {
+    background: #e2f2ff;
+}
+
+.filtro.ativo {
+    background: #087bfa;
+    color: white;
+    border-color: #087bfa;
+}
+
+/* CARTÕES */
+
+.conteudos-resultado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.conteudos-resultado h3 {
+    font-size: 23px;
+}
+
+#total-conteudos {
+    font-size: 13px;
+    color: #7084a3;
+}
+
+.grade-conteudos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.cartao-conteudo {
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 16px #003b9108;
+    transition: transform 0.2s;
+}
+
+.cartao-conteudo:hover {
+    transform: translateY(-4px);
+}
+
+.icone-conteudo {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaf4ff;
+    border-radius: 15px;
+    font-size: 26px;
+}
+
+.categoria-conteudo {
+    color: #087bfa;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.cartao-conteudo h4 {
+    font-size: 19px;
+    color: #073b8e;
+    line-height: 1.4;
+}
+
+.cartao-conteudo p {
+    color: #42649a;
+    font-size: 14px;
+    line-height: 1.7;
+    flex: 1;
+}
+
+.btn-ler {
+    align-self: flex-start;
+    border: none;
+    background: #087bfa;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-ler:hover {
+    background: #005bc5;
+}
+
+/* LEITOR DE ARTIGOS */
+
+.leitor-conteudo {
+    margin-top: 35px;
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 4px 18px #003b910a;
+}
+
+.leitor-conteudo[hidden] {
+    display: none;
+}
+
+.voltar-conteudos {
+    background: transparent;
+    border: none;
+    color: #087bfa;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.categoria-artigo {
+    display: block;
+    color: #087bfa;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.leitor-conteudo h3 {
+    font-size: clamp(24px, 3vw, 34px);
+    margin-bottom: 22px;
+    color: #073b8e;
+}
+
+#corpo-artigo p {
+    color: #344d75;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
+
+@media (max-width: 1000px) {
+    .grade-conteudos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .grade-conteudos {
+        grid-template-columns: 1fr;
+    }
+
+    .leitor-conteudo {
+        padding: 22px;
+    }
+}
