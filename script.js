@@ -64,4 +64,40 @@ if (formCadastro) {
 
 }
 
+// RECUPERAÇÃO DE SENHA
+
+const formRecuperacao =
+    document.querySelector("#form-recuperacao");
+
+if (formRecuperacao) {
+
+    formRecuperacao.addEventListener("submit", function(evento) {
+
+        evento.preventDefault();
+
+        const email = document.querySelector(
+            "#email-recuperacao"
+        ).value.trim();
+
+        const mensagem = document.querySelector(
+            "#mensagem-recuperacao"
+        );
+
+        if (email === "") {
+            mensagem.textContent =
+                "Por favor, informe seu e-mail.";
+            return;
+        }
+
+        mensagem.textContent =
+            "E-mail validado! A recuperação de senha " +
+            "estará disponível quando conectarmos " +
+            "o sistema ao banco de dados.";
+
+        mensagem.style.color = "#087bfa";
+
+    });
+
+}
+
 

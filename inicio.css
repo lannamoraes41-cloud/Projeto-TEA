@@ -311,3 +311,19 @@ footer {
     }
 }
 
+/* LOGOTIPO OFICIAL - TODAS AS PÁGINAS */
+
+.menu-lateral .logo-oficial {
+    display: block;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.menu-lateral .logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
