@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Configurações | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="configuracoes.css">
+
+    <script src="configuracoes.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+
+        <div class="logo">
+            <div class="simbolo">💙</div>
+            <h1><span>TEA</span>ajuda</h1>
+            <small>Onde dúvidas encontram acolhimento.</small>
+        </div>
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html" class="ativo">
+                ⚙ &nbsp; Configurações
+            </a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="principal configuracoes-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="configuracoes-cabecalho">
+            <span class="etiqueta-configuracoes">
+                Personalização
+            </span>
+
+            <h2>Configurações 💙</h2>
+
+            <p>
+                Personalize sua experiência no TEAjuda
+                de acordo com suas preferências.
+            </p>
+        </section>
+
+        <form id="form-configuracoes"
+              class="configuracoes-area">
+
+            <!-- NOTIFICAÇÕES -->
+            <section class="cartao-configuracao">
+                <div class="cartao-titulo">
+                    <span class="icone-configuracao">🔔</span>
+                    <div>
+                        <h3>Notificações</h3>
+                        <p>
+                            Escolha quais avisos deseja receber.
+                        </p>
+                    </div>
+                </div>
+
+                <label class="opcao-configuracao">
+                    <span>
+                        <strong>Novas respostas</strong>
+                        <small>
+                            Avisos quando alguém responder
+                            suas perguntas.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                           id="notificar-respostas">
+                </label>
+
+                <label class="opcao-configuracao">
+                    <span>
+                        <strong>Eventos e encontros</strong>
+                        <small>
+                            Avisos sobre eventos e atividades.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                           id="notificar-eventos">
+                </label>
+
+                <label class="opcao-configuracao">
+                    <span>
+                        <strong>Novidades da comunidade</strong>
+                        <small>
+                            Atualizações sobre publicações
+                            e conteúdos.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                           id="notificar-comunidade">
+                </label>
+            </section>
+
+            <!-- PRIVACIDADE -->
+            <section class="cartao-configuracao">
+                <div class="cartao-titulo">
+                    <span class="icone-configuracao">🔒</span>
+                    <div>
+                        <h3>Privacidade</h3>
+                        <p>
+                            Defina como seu perfil poderá
+                            aparecer para outras pessoas.
+                        </p>
+                    </div>
+                </div>
+
+                <label class="opcao-configuracao">
+                    <span>
+                        <strong>Perfil público</strong>
+                        <small>
+                            Permitir a visualização do perfil
+                            por outros membros.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                           id="perfil-publico">
+                </label>
+
+                <label class="opcao-configuracao">
+                    <span>
+                        <strong>Mostrar minha cidade</strong>
+                        <small>
+                            Autorizar a exibição da cidade
+                            no perfil público.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                           id="mostrar-cidade">
+                </label>
+            </section>
+
+            <!-- APARÊNCIA -->
+            <section class="cartao-configuracao">
+                <div class="cartao-titulo">
+                    <span class="icone-configuracao">🎨</span>
+                    <div>
+                        <h3>Aparência</h3>
+                        <p>
+                            Ajuste a visualização desta página.
+                        </p>
+                    </div>
+                </div>
+
+                <label for="tema-site">
+                    Tema
+                </label>
+
+                <select id="tema-site">
+                    <option value="claro">Modo claro</option>
+                    <option value="escuro">Modo escuro</option>
+                </select>
+
+                <label for="tamanho-fonte">
+                    Tamanho da fonte
+                </label>
+
+                <select id="tamanho-fonte">
+                    <option value="normal">Normal</option>
+                    <option value="grande">Grande</option>
+                    <option value="maior">Muito grande</option>
+                </select>
+            </section>
+
+            <!-- AÇÕES -->
+            <div class="acoes-configuracoes">
+                <button type="button"
+                        id="restaurar-padrao"
+                        class="btn-restaurar">
+                    Restaurar padrão
+                </button>
+
+                <button type="submit"
+                        class="btn-salvar-config">
+                    Salvar configurações
+                </button>
+            </div>
+
+            <p id="mensagem-configuracoes"
+               role="status"
+               aria-live="polite"></p>
+
+        </form>
+
+        <footer>
+            Um espaço pensado para acolher você. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
