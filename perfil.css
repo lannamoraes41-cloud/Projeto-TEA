@@ -1,0 +1,224 @@
+
+/* TEAJUDA - MEU PERFIL */
+
+.perfil-principal {
+    min-height: 100vh;
+}
+
+.perfil-cabecalho,
+.perfil-area {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.perfil-cabecalho {
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+.etiqueta-perfil {
+    display: inline-block;
+    background: #e2f2ff;
+    color: #087bfa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.perfil-cabecalho h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 15px;
+}
+
+.perfil-cabecalho p {
+    color: #42649a;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+/* ORGANIZAÇÃO */
+
+.perfil-area {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 25px;
+    align-items: start;
+}
+
+/* CARTÃO DO PERFIL */
+
+.cartao-perfil {
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+    padding: 35px 22px;
+    text-align: center;
+    box-shadow: 0 4px 16px #003b9108;
+}
+
+.foto-perfil {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background: #e2f2ff;
+    margin: 0 auto 22px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imagem-perfil {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#imagem-perfil[hidden] {
+    display: none;
+}
+
+#avatar-padrao {
+    font-size: 65px;
+}
+
+.cartao-perfil h3 {
+    color: #073b8e;
+    font-size: 22px;
+    overflow-wrap: anywhere;
+    margin-bottom: 10px;
+}
+
+.cartao-perfil p {
+    color: #7084a3;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+    margin-bottom: 20px;
+}
+
+.identificacao-perfil {
+    display: inline-block;
+    background: #fff3cf;
+    color: #8a6500;
+    padding: 9px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* FORMULÁRIO */
+
+.edicao-perfil {
+    background: white;
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 16px #003b9108;
+}
+
+.edicao-perfil h3 {
+    font-size: 23px;
+    color: #073b8e;
+    margin-bottom: 25px;
+}
+
+#form-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#form-perfil label {
+    color: #073b8e;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#form-perfil input:not([type="file"]),
+#form-perfil textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccd8e8;
+    border-radius: 10px;
+    font: inherit;
+    color: #344d75;
+    background: white;
+}
+
+#form-perfil textarea {
+    min-height: 115px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+#form-perfil input:focus,
+#form-perfil textarea:focus {
+    outline: 2px solid #087bfa;
+    outline-offset: 2px;
+}
+
+#foto-arquivo {
+    max-width: 100%;
+    font-size: 14px;
+}
+
+.aviso-foto {
+    color: #7084a3;
+    font-size: 12px;
+}
+
+.acoes-perfil {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.acoes-perfil button {
+    border-radius: 25px;
+    padding: 13px 22px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: white;
+    border: 1px solid #ccd8e8;
+    color: #42649a;
+}
+
+.btn-salvar {
+    background: #087bfa;
+    border: 1px solid #087bfa;
+    color: white;
+}
+
+.btn-salvar:hover {
+    background: #005bc5;
+}
+
+#mensagem-perfil {
+    color: #087bfa;
+    font-size: 14px;
+    margin-top: 18px;
+    line-height: 1.6;
+}
+
+@media (max-width: 950px) {
+    .perfil-area {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .edicao-perfil {
+        padding: 20px;
+    }
+
+    .acoes-perfil {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Meu Perfil | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="perfil.css">
+
+    <script src="perfil.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+
+        <div class="logo">
+            <div class="simbolo">💙</div>
+            <h1><span>TEA</span>ajuda</h1>
+            <small>Onde dúvidas encontram acolhimento.</small>
+        </div>
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html" class="ativo">
+                ♙ &nbsp; Meu Perfil
+            </a>
+            <a href="configuracoes.html">
+                ⚙ &nbsp; Configurações
+            </a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="principal perfil-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="perfil-cabecalho">
+            <span class="etiqueta-perfil">
+                Minha conta
+            </span>
+
+            <h2>Meu Perfil 💙</h2>
+
+            <p>
+                Personalize suas informações
+                e mantenha seus dados atualizados.
+            </p>
+        </section>
+
+        <section class="perfil-area">
+
+            <!-- CARTÃO DO USUÁRIO -->
+            <div class="cartao-perfil">
+
+                <div class="foto-perfil">
+                    <img
+                        id="imagem-perfil"
+                        alt="Foto do perfil"
+                        hidden
+                    >
+
+                    <span id="avatar-padrao"
+                          aria-hidden="true">👤</span>
+                </div>
+
+                <h3 id="nome-exibicao">
+                    Usuário(a) TEAjuda
+                </h3>
+
+                <p id="email-exibicao">
+                    E-mail não informado
+                </p>
+
+                <span class="identificacao-perfil">
+                    Membro da comunidade TEAjuda
+                </span>
+
+            </div>
+
+            <!-- FORMULÁRIO -->
+            <div class="edicao-perfil">
+
+                <h3>Informações pessoais</h3>
+
+                <form id="form-perfil">
+
+                    <label for="nome-perfil">
+                        Nome completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome-perfil"
+                        placeholder="Digite seu nome completo"
+                        autocomplete="name"
+                        maxlength="150"
+                        required
+                    >
+
+                    <label for="email-perfil">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email-perfil"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+
+                    <label for="telefone-perfil">
+                        Telefone (opcional)
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telefone-perfil"
+                        placeholder="(00) 00000-0000"
+                        autocomplete="tel"
+                        maxlength="20"
+                    >
+
+                    <label for="cidade-perfil">
+                        Cidade (opcional)
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cidade-perfil"
+                        placeholder="Sua cidade"
+                        maxlength="100"
+                    >
+
+                    <label for="sobre-perfil">
+                        Sobre mim (opcional)
+                    </label>
+
+                    <textarea
+                        id="sobre-perfil"
+                        placeholder="Conte um pouco sobre você..."
+                        maxlength="500"
+                    ></textarea>
+
+                    <label for="foto-arquivo">
+                        Foto de perfil (opcional)
+                    </label>
+
+                    <input
+                        type="file"
+                        id="foto-arquivo"
+                        accept="image/png,image/jpeg,image/webp"
+                    >
+
+                    <small class="aviso-foto">
+                        Escolha uma imagem JPG, PNG ou WebP
+                        de até 1 MB.
+                    </small>
+
+                    <div class="acoes-perfil">
+                        <button type="button"
+                                id="cancelar-edicao"
+                                class="btn-cancelar">
+                            Cancelar
+                        </button>
+
+                        <button type="submit"
+                                class="btn-salvar">
+                            Salvar alterações
+                        </button>
+                    </div>
+
+                </form>
+
+                <p id="mensagem-perfil"
+                   role="status"
+                   aria-live="polite"></p>
+
+            </div>
+
+        </section>
+
+        <footer>
+            Seu espaço. Sua história. Sua comunidade. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
