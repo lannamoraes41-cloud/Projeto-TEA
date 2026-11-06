@@ -550,3 +550,21 @@ h1 strong {
     line-height: 1.5;
     margin-top: 18px;
 }
+
+/* LOGOTIPO OFICIAL - PÁGINAS PÚBLICAS */
+
+.pagina-publica .logo-publica {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto 22px;
+}
+
+.pagina-publica .logo-publica img {
+    display: block;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    object-fit: contain;
+}
