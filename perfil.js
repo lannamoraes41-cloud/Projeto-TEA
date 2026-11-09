@@ -79,20 +79,29 @@ function atualizarCartao() {
 }
 
 // CONVERTER FOTO PARA VISUALIZAÇÃO
-function lerImagem(arquivo) {
-    return new Promise(function(resolve, reject) {
-        const leitor = new FileReader();
 
-        leitor.onload = function() {
-            resolve(leitor.result);
-        };
+async function enviarFotoParaServidor(arquivo) {
+    const formulario = new FormData();
+    formulario.append("foto", arquivo);
 
-        leitor.onerror = function() {
-            reject(new Error("Não foi possível ler a imagem."));
-        };
-
-        leitor.readAsDataURL(arquivo);
+    const resposta = await fetch("/api/perfil/foto", {
+        method: "POST",
+        credentials: "same-origin",
+        body: formulario
     });
+
+    const dados = await resposta.json();
+
+    if (resposta.status === 401) {
+        window.location.href = "login.html";
+        throw new Error("Sessão expirada.");
+    }
+
+    if (!resposta.ok) {
+        throw new Error(dados.mensagem || "Erro ao enviar foto.");
+    }
+
+    return dados.foto;
 }
 
 // SALVAR ALTERAÇÕES
@@ -144,33 +153,58 @@ formPerfil.addEventListener("submit", async function(evento) {
             return;
         }
 
-        try {
-            novoPerfil.foto = await lerImagem(arquivo);
-        } catch (erro) {
-            mensagemPerfil.textContent =
-                "Não foi possível carregar a foto.";
-            return;
-        }
     }
 
-    try {
-        localStorage.setItem(
-            CHAVE_PERFIL,
-            JSON.stringify(novoPerfil)
+
+try {
+    const resposta = await fetch("/api/perfil", {
+        method: "PUT",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nome: novoPerfil.nome,
+            email: novoPerfil.email,
+            telefone: novoPerfil.telefone,
+            cidade: novoPerfil.cidade,
+            sobre: novoPerfil.sobre
+        })
+    });
+
+    const dados = await resposta.json();
+
+    if (resposta.status === 401) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (!resposta.ok) {
+        throw new Error(
+            dados.mensagem || "Não foi possível atualizar o perfil."
         );
-
-        perfilSalvo = novoPerfil;
-
-        atualizarCartao();
-        preencherFormulario();
-
-        mensagemPerfil.textContent =
-            "Alterações salvas neste navegador com sucesso!";
-    } catch (erro) {
-        mensagemPerfil.textContent =
-            "Não foi possível salvar os dados. " +
-            "Tente usar uma foto menor.";
     }
+     if (arquivo) {
+    novoPerfil.foto = await enviarFotoParaServidor(arquivo);
+}
+
+    perfilSalvo = novoPerfil;
+
+    atualizarCartao();
+    preencherFormulario();
+
+    mensagemPerfil.textContent =
+        "Perfil atualizado no MySQL com sucesso!";
+
+} catch (erro) {
+    console.error("Erro ao salvar perfil:", erro);
+    console.error("Nome do erro:", erro.name);
+    console.error("Detalhes:", erro.stack);
+
+    mensagemPerfil.textContent =
+        "Não foi possível salvar o perfil. Verifique o console.";
+}
+
 });
 
 // CANCELAR EDIÇÃO
@@ -184,3 +218,43 @@ botaoCancelar.addEventListener("click", function() {
 // INICIAR PÁGINA
 preencherFormulario();
 atualizarCartao();
+// CARREGAR DADOS DO USUÁRIO LOGADO NO MYSQL
+async function carregarDadosDoBanco() {
+    try {
+        const resposta = await fetch("/api/perfil", {
+            credentials: "same-origin"
+        });
+
+        if (resposta.status === 401) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!resposta.ok) {
+            throw new Error("Não foi possível carregar o perfil.");
+        }
+
+        const dados = await resposta.json();
+        const usuario = dados.usuario;
+
+        perfilSalvo = {
+    ...perfilSalvo,
+    nome: usuario.nome || "",
+    email: usuario.email || "",
+    telefone: usuario.telefone || "",
+    cidade: usuario.cidade || "",
+    sobre: usuario.sobre || "",
+    foto: usuario.foto_perfil || ""
+    };
+
+        preencherFormulario();
+        atualizarCartao();
+
+    } catch (erro) {
+        mensagemPerfil.textContent =
+            "Erro ao carregar os dados do perfil.";
+        console.error(erro);
+    }
+}
+
+carregarDadosDoBanco();

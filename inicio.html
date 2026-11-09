@@ -74,7 +74,7 @@
         <header class="topo">
             <span>♡</span>
             <div class="usuario">
-                👤 &nbsp; Olá, Usuário(a) ⌄
+                👤 👤 &nbsp; Olá, <span id="nome-usuario">Usuário(a)</span> ⌄
             </div>
         </header>
 
@@ -171,6 +171,31 @@
     </main>
 
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const resposta = await fetch("/api/usuario-logado", {
+            credentials: "same-origin"
+        });
 
+        if (resposta.status === 401) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao consultar usuário.");
+        }
+
+        const dados = await resposta.json();
+
+        document.querySelector("#nome-usuario").textContent =
+            dados.usuario.nome;
+
+    } catch (erro) {
+        console.error("Erro ao carregar nome:", erro);
+    }
+});
+</script>
 </body>
 </html>

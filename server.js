@@ -1,11 +1,63 @@
 
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 require("dotenv").config();
 
 const app = express();
-app.use(express.static(__dirname));
+// CONFIGURAÇÃO DA PASTA DE FOTOS
+const pastaUploads = path.join(__dirname, "uploads");
 
+// Criar a pasta caso ela não exista
+if (!fs.existsSync(pastaUploads)) {
+    fs.mkdirSync(pastaUploads, { recursive: true });
+}
+
+// CONFIGURAÇÃO DO MULTER
+const armazenamento = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, pastaUploads);
+    },
+
+    filename: function (req, file, cb) {
+        const nomeArquivo =
+            Date.now() + "-" +
+            Math.random().toString(36).substring(2, 10) +
+            path.extname(file.originalname).toLowerCase();
+
+        cb(null, nomeArquivo);
+    }
+});
+
+const upload = multer({
+    storage: armazenamento,
+    limits: {
+        fileSize: 1024 * 1024 // Máximo de 1 MB
+    },
+    fileFilter: function (req, file, cb) {
+        const tiposPermitidos = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        const extensoesPermitidas = [".jpg", ".jpeg", ".png", ".webp"];
+        const extensao = path.extname(file.originalname).toLowerCase();
+
+        if (
+            tiposPermitidos.includes(file.mimetype) &&
+            extensoesPermitidas.includes(extensao)
+        ) {
+            cb(null, true);
+        } else {
+            cb(new Error("Formato de imagem não permitido."));
+        }
+    }
+});
+app.use(express.static(__dirname));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const db = require("./db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
@@ -146,14 +198,38 @@ app.post("/api/login", async (req, res) => {
             });
         }
 
+       
+req.session.regenerate((erroSessao) => {
+    if (erroSessao) {
+        console.error("Erro ao criar sessão:", erroSessao);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível iniciar a sessão."
+        });
+    }
+
+    req.session.usuario = {
+        id: usuario.id_usuario,
+        nome: usuario.nome,
+        email: usuario.email
+    };
+
+    req.session.save((erroSalvar) => {
+        if (erroSalvar) {
+            console.error("Erro ao salvar sessão:", erroSalvar);
+
+            return res.status(500).json({
+                mensagem: "Não foi possível salvar a sessão."
+            });
+        }
+
         return res.status(200).json({
             mensagem: "Login realizado com sucesso!",
-            usuario: {
-                id: usuario.id_usuario,
-                nome: usuario.nome,
-                email: usuario.email
-            }
+            usuario: req.session.usuario
         });
+    });
+});
+
 
     } catch (erro) {
         console.error("Erro no login:", erro.message);
@@ -163,6 +239,186 @@ app.post("/api/login", async (req, res) => {
         });
     }
 });
+// CONSULTAR PERFIL DO USUÁRIO LOGADO
+app.get("/api/perfil", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const idUsuario = req.session.usuario.id;
+
+        
+       const [usuarios] = await db.query(
+       
+      `SELECT id_usuario, nome, email, telefone, cidade, sobre, foto_perfil
+       FROM usuarios
+       WHERE id_usuario = ?`,
+       [idUsuario]
+       );
+
+        if (usuarios.length === 0) {
+            return res.status(404).json({
+                mensagem: "Usuário não encontrado."
+            });
+        }
+
+        return res.json({
+            usuario: usuarios[0]
+        });
+
+    } catch (erro) {
+        console.error("Erro ao consultar perfil:", erro.message);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível carregar o perfil."
+        });
+    }
+});
+// VERIFICAR USUÁRIO LOGADO
+app.get("/api/usuario-logado", (req, res) => {
+    if (!req.session.usuario) {
+        return res.status(401).json({
+            mensagem: "Você precisa fazer login."
+        });
+    }
+
+    return res.json({
+        usuario: req.session.usuario
+    });
+});
+// ATUALIZAR PERFIL DO USUÁRIO LOGADO
+app.put("/api/perfil", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const { nome, email, telefone, cidade, sobre } = req.body;
+
+        if (
+            typeof nome !== "string" ||
+            nome.trim().length < 3 ||
+            typeof email !== "string" ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+        ) {
+            return res.status(400).json({
+                mensagem: "Informe um nome e e-mail válidos."
+            });
+        }
+
+        if (
+            [telefone, cidade, sobre].some(
+                valor => valor != null && typeof valor !== "string"
+            )
+        ) {
+            return res.status(400).json({
+                mensagem: "Dados do perfil inválidos."
+            });
+        }
+
+        const idUsuario = req.session.usuario.id;
+
+        await db.query(
+            `UPDATE usuarios
+             SET nome = ?, email = ?, telefone = ?, cidade = ?, sobre = ?
+             WHERE id_usuario = ?`,
+            [
+                nome.trim(),
+                email.trim().toLowerCase(),
+                (telefone || "").trim(),
+                (cidade || "").trim(),
+                (sobre || "").trim(),
+                idUsuario
+            ]
+        );
+
+        req.session.usuario.nome = nome.trim();
+        req.session.usuario.email = email.trim().toLowerCase();
+        await new Promise((resolve, reject) => {
+    req.session.save((erro) => {
+        if (erro) {
+            reject(erro);
+        } else {
+            resolve();
+        }
+    });
+});
+
+        return res.json({
+            mensagem: "Perfil atualizado com sucesso!"
+        });
+
+    } catch (erro) {
+        console.error("Erro ao atualizar perfil:", erro.message);
+
+        if (erro.code === "ER_DUP_ENTRY") {
+            return res.status(409).json({
+                mensagem: "Este e-mail já está cadastrado."
+            });
+        }
+
+        return res.status(500).json({
+            mensagem: "Não foi possível atualizar o perfil."
+        });
+    }
+});
+
+const uploadFoto = upload.single("foto");
+
+app.post("/api/perfil/foto", (req, res) => {
+    if (!req.session.usuario) {
+        return res.status(401).json({
+            mensagem: "Você precisa fazer login."
+        });
+    }
+
+    uploadFoto(req, res, async (erro) => {
+        if (erro) {
+            return res.status(400).json({
+                mensagem: erro.code === "LIMIT_FILE_SIZE"
+                    ? "A foto deve ter no máximo 1 MB."
+                    : "Arquivo de imagem inválido."
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({
+                mensagem: "Selecione uma foto."
+            });
+        }
+
+        try {
+            const caminhoFoto = "/uploads/" + req.file.filename;
+
+            await db.query(
+                `UPDATE usuarios
+                 SET foto_perfil = ?
+                 WHERE id_usuario = ?`,
+                [caminhoFoto, req.session.usuario.id]
+            );
+
+            return res.json({
+                mensagem: "Foto atualizada com sucesso!",
+                foto: caminhoFoto
+            });
+
+        } catch (erroBanco) {
+            console.error("Erro ao salvar foto:", erroBanco.message);
+
+            fs.unlink(req.file.path, () => {});
+
+            return res.status(500).json({
+                mensagem: "Não foi possível salvar a foto."
+            });
+        }
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor TEAjuda rodando na porta ${PORT}`);
 });
