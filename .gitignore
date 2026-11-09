@@ -1,0 +1,8 @@
+# Informações confidenciais
+.env
+
+# Dependências do Node.js
+node_modules/
+
+# Arquivos do sistema
+.DS_Store
