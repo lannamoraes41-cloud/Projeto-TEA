@@ -4,9 +4,22 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+app.use(express.static(__dirname));
 
 const db = require("./db");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 2
+    }
+}));
 
 app.get("/teste-banco", async (req, res) => {
     try {
@@ -24,18 +37,12 @@ app.get("/teste-banco", async (req, res) => {
         });
     }
 });
-
-
 app.use(cors());
 app.use(express.json());
-
 app.get("/", (req, res) => {
     res.send("Servidor TEAjuda funcionando!");
 });
-
 const PORT = process.env.PORT || 3000;
-
-
 app.post("/api/cadastro", async (req, res) => {
     try {
         const { nome, email, senha } = req.body;
@@ -125,6 +132,8 @@ app.post("/api/login", async (req, res) => {
         }
 
         const usuario = usuarios[0];
+        console.log("Usuário encontrado:", usuario.email);
+        console.log("Hash encontrado:", Boolean(usuario.senha_hash));
 
         const senhaCorreta = await bcrypt.compare(
             senha,

@@ -43,8 +43,10 @@ if (formulario) {
             mensagem.style.color = "#087bfa";
             mensagem.textContent = dados.mensagem;
 
-            // Por enquanto, apenas confirma o login.
-            // A sessão segura será implementada na próxima etapa.
+          // Redireciona após o login ser confirmado pelo servidor
+           setTimeout(() => {
+            window.location.href = "inicio.html";
+        }, 1000);
 
         } catch (erro) {
             mensagem.style.color = "#d32f2f";
