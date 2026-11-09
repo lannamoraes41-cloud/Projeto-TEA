@@ -2,34 +2,67 @@
 const formulario = document.querySelector("#form-login");
 
 if (formulario) {
-
-    formulario.addEventListener("submit", function(evento) {
-
+    formulario.addEventListener("submit", async function(evento) {
         evento.preventDefault();
 
-        const email = document.querySelector("#email").value;
+        const email = document.querySelector("#email").value.trim();
         const senha = document.querySelector("#senha").value;
         const mensagem = document.querySelector("#mensagem-login");
 
-        if (email.trim() === "" || senha.trim() === "") {
+        mensagem.style.color = "#d32f2f";
+
+        if (!email || !senha) {
             mensagem.textContent = "Preencha todos os campos.";
             return;
         }
 
-        mensagem.textContent =
-            "O login estará disponível após a conexão com o banco de dados.";
+        mensagem.style.color = "#087bfa";
+        mensagem.textContent = "Verificando seus dados...";
 
+        try {
+            const resposta = await fetch(
+                "http://localhost:3000/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, senha })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                mensagem.style.color = "#d32f2f";
+                mensagem.textContent =
+                    dados.mensagem || "Não foi possível entrar.";
+                return;
+            }
+
+            mensagem.style.color = "#087bfa";
+            mensagem.textContent = dados.mensagem;
+
+            // Por enquanto, apenas confirma o login.
+            // A sessão segura será implementada na próxima etapa.
+
+        } catch (erro) {
+            mensagem.style.color = "#d32f2f";
+            mensagem.textContent =
+                "Não foi possível conectar ao servidor TEAjuda.";
+        }
     });
-
 }
 
-// VALIDAÇÃO DO CADASTRO
+
+
+ // VALIDAÇÃO E CADASTRO NO MYSQL
 
 const formCadastro = document.querySelector("#form-cadastro");
 
 if (formCadastro) {
 
-    formCadastro.addEventListener("submit", function(evento) {
+    formCadastro.addEventListener("submit", async function(evento) {
 
         evento.preventDefault();
 
@@ -40,8 +73,15 @@ if (formCadastro) {
 
         const mensagem = document.querySelector("#mensagem-cadastro");
 
+        mensagem.style.color = "#d32f2f";
+
         if (nome.length < 3) {
             mensagem.textContent = "Informe seu nome completo.";
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            mensagem.textContent = "Informe um e-mail válido.";
             return;
         }
 
@@ -57,12 +97,48 @@ if (formCadastro) {
         }
 
         mensagem.style.color = "#087bfa";
-        mensagem.textContent =
-            "Dados validados! O cadastro será ativado quando conectarmos o banco de dados.";
+        mensagem.textContent = "Realizando seu cadastro...";
 
+        try {
+            const resposta = await fetch(
+                "http://localhost:3000/api/cadastro",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        email,
+                        senha
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                mensagem.style.color = "#d32f2f";
+                mensagem.textContent = dados.mensagem;
+                return;
+            }
+
+            mensagem.style.color = "#087bfa";
+            mensagem.textContent = dados.mensagem;
+
+            formCadastro.reset();
+
+      } catch (erro) {
+    console.error("Erro no cadastro TEAjuda:", erro);
+
+    mensagem.style.color = "#d32f2f";
+    mensagem.textContent =
+        "Ocorreu um erro ao realizar o cadastro. Verifique o console.";
+}
     });
 
 }
+
 
 // RECUPERAÇÃO DE SENHA
 
