@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Conteúdos | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="conteudos.css">
+
+    <script src="conteudos.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+       
+<div class="logo">
+    <img
+        src="img/logo-TEAajuda.png"
+        alt="TEAjuda - Onde dúvidas encontram acolhimento"
+        class="logo-oficial"
+    >
+</div>
+
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html" class="ativo">
+                ▤ &nbsp; Conteúdos
+            </a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html">⚙ &nbsp; Configurações</a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="principal conteudos-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="conteudos-cabecalho">
+            <span class="etiqueta-conteudos">
+                Biblioteca de conhecimento
+            </span>
+
+            <h2>Conteúdos sobre o TEA</h2>
+
+            <p>
+                Informação acessível, conhecimento
+                e acolhimento em um só lugar.
+                Explore nossos materiais educativos.
+            </p>
+        </section>
+
+        <section class="conteudos-area">
+
+            <!-- PESQUISA -->
+            <div class="pesquisa-conteudos">
+                <label for="pesquisa-conteudo">
+                    O que você deseja aprender?
+                </label>
+
+                <input
+                    type="search"
+                    id="pesquisa-conteudo"
+                    placeholder="Pesquise por tema ou palavra-chave..."
+                >
+            </div>
+
+            <!-- FILTROS -->
+            <div class="filtros-conteudos"
+                 id="filtros-conteudos"
+                 aria-label="Filtrar conteúdos">
+
+                <button type="button"
+                        class="filtro ativo"
+                        data-categoria="Todos"
+                        aria-pressed="true">
+                    Todos
+                </button>
+
+                <button type="button"
+                        class="filtro"
+                        data-categoria="Entendendo o TEA"
+                        aria-pressed="false">
+                    Entendendo o TEA
+                </button>
+
+                <button type="button"
+                        class="filtro"
+                        data-categoria="Educação"
+                        aria-pressed="false">
+                    Educação
+                </button>
+
+                <button type="button"
+                        class="filtro"
+                        data-categoria="Rotina"
+                        aria-pressed="false">
+                    Rotina
+                </button>
+
+                <button type="button"
+                        class="filtro"
+                        data-categoria="Direitos"
+                        aria-pressed="false">
+                    Direitos
+                </button>
+            </div>
+
+            <div class="conteudos-resultado">
+                <h3>Explore nossos materiais</h3>
+                <span id="total-conteudos"></span>
+            </div>
+
+            <!-- CARTÕES GERADOS PELO JAVASCRIPT -->
+            <div id="lista-conteudos"
+                 class="grade-conteudos"></div>
+
+            <!-- LEITURA DO ARTIGO -->
+            <section id="leitor-conteudo"
+                     class="leitor-conteudo"
+                     hidden
+                     aria-labelledby="titulo-artigo">
+
+                <button type="button"
+                        id="fechar-artigo"
+                        class="voltar-conteudos">
+                    ← Voltar aos conteúdos
+                </button>
+
+                <span id="categoria-artigo"
+                      class="categoria-artigo"></span>
+
+                <h3 id="titulo-artigo"></h3>
+
+                <div id="corpo-artigo"></div>
+
+            </section>
+
+        </section>
+
+        <footer>
+            Conhecimento transforma. Acolhimento aproxima. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>

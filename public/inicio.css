@@ -1,0 +1,329 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #073b8e;
+    background: #ffffff;
+}
+
+a {
+    text-decoration: none;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU LATERAL */
+
+.menu-lateral {
+    width: 270px;
+    flex-shrink: 0;
+    background: white;
+    padding: 25px 20px;
+    border-right: 1px solid #e5edf7;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.simbolo {
+    font-size: 48px;
+}
+
+.logo h1 {
+    font-size: 34px;
+    color: #073b8e;
+}
+
+.logo h1 span {
+    color: #1688ed;
+}
+
+.logo small {
+    font-size: 11px;
+}
+
+.navegacao {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.navegacao a {
+    color: #073b8e;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.navegacao a:hover,
+.navegacao .ativo {
+    background: #dcefff;
+    color: #087bfa;
+}
+
+.navegacao hr {
+    border: none;
+    border-top: 1px solid #e1e7f0;
+    margin: 12px 0;
+}
+
+.mensagem-lateral {
+    margin-top: auto;
+    text-align: center;
+    color: #2874cc;
+    font-style: italic;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+/* ÁREA PRINCIPAL */
+
+.principal {
+    flex: 1;
+    min-width: 0;
+    padding: 20px 35px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f0f8ff 65%,
+        #fff7eb
+    );
+}
+
+.topo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 35px;
+    min-height: 55px;
+    font-size: 20px;
+}
+
+.usuario {
+    font-size: 16px;
+}
+
+/* BOAS-VINDAS */
+
+.boas-vindas {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 35px 10px;
+}
+
+.texto-boas-vindas {
+    flex: 1;
+    min-width: 0;
+}
+
+.texto-boas-vindas h2 {
+    font-size: clamp(30px, 3vw, 50px);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.texto-boas-vindas h2 strong {
+    display: block;
+    font-size: clamp(42px, 4vw, 70px);
+}
+
+.azul {
+    color: #1688ed;
+}
+
+.amarelo {
+    color: #ffb51b;
+}
+
+.texto-boas-vindas p {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.saudacao {
+    font-weight: bold;
+}
+
+.frase {
+    background: #e2f2ff;
+    border-left: 4px solid #1688ed;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 19px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* ILUSTRAÇÃO */
+
+.ilustracao {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.ilustracao img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 20px;
+}
+
+/* CARTÕES */
+
+.cartoes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.cartao {
+    background: white;
+    border: 1px solid #e8edf5;
+    border-radius: 18px;
+    padding: 22px 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px #003b910d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.icone {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.azul-claro {
+    background: #d3edff;
+}
+
+.amarelo-claro {
+    background: #fff0c5;
+}
+
+.rosa-claro {
+    background: #ffd8e4;
+}
+
+.verde-claro {
+    background: #c9f7e9;
+}
+
+.cartao h3 {
+    font-size: 17px;
+}
+
+.cartao p {
+    font-size: 14px;
+    color: #42649a;
+    line-height: 1.5;
+}
+
+.cartao a {
+    color: #087bfa;
+    font-size: 14px;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+/* BOTÃO */
+
+.acao {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-comecar {
+    display: inline-block;
+    background: #087bfa;
+    color: white;
+    padding: 16px 55px;
+    border-radius: 35px;
+    font-size: 18px;
+}
+
+.btn-comecar:hover {
+    background: #005bc5;
+}
+
+footer {
+    text-align: right;
+    margin-top: 30px;
+    font-style: italic;
+    color: #2874cc;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1100px) {
+    .boas-vindas {
+        flex-direction: column;
+    }
+
+    .cartoes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .menu-lateral {
+        width: 100%;
+    }
+
+    .mensagem-lateral {
+        display: none;
+    }
+
+    .principal {
+        padding: 20px;
+    }
+
+    .cartoes {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* LOGOTIPO OFICIAL - TODAS AS PÁGINAS */
+
+.menu-lateral .logo-oficial {
+    display: block;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.menu-lateral .logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+

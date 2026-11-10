@@ -151,11 +151,34 @@ function mostrarPublicacoes() {
             String(publicacao.curtiu)
         );
 
-        btnCurtir.addEventListener("click", function() {
-            publicacao.curtiu = !publicacao.curtiu;
-            publicacao.curtidas += publicacao.curtiu ? 1 : -1;
-            mostrarPublicacoes();
-        });
+      btnCurtir.addEventListener("click", async function() {
+    try {
+        btnCurtir.disabled = true;
+
+        const resposta = await fetch(
+            `/api/comunidade/publicacoes/${publicacao.id}/curtir`,
+            {
+                method: "POST",
+                credentials: "same-origin"
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(dados.mensagem || "Erro ao salvar curtida.");
+        }
+
+        publicacao.curtiu = dados.curtiu;
+        publicacao.curtidas = dados.curtidas;
+
+        mostrarPublicacoes();
+
+    } catch (erro) {
+        console.error("Erro ao curtir:", erro);
+        btnCurtir.disabled = false;
+    }
+});
 
         const btnComentar = criarElemento(
             "button", "", "💬 Comentar"
@@ -206,7 +229,7 @@ function mostrarPublicacoes() {
 
         formComentario.addEventListener(
             "submit",
-            function(evento) {
+            async function(evento) {
                 evento.preventDefault();
 
                 const textoComentario = input.value.trim();
@@ -215,18 +238,44 @@ function mostrarPublicacoes() {
                     return;
                 }
 
-                publicacao.comentarios.push(textoComentario);
+               try {
+    const resposta = await fetch(
+        `/api/comunidade/publicacoes/${publicacao.id}/comentarios`,
+        {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                conteudo: textoComentario
+            })
+        }
+    );
 
-                comentarios.insertBefore(
-                    criarElemento(
-                        "p",
-                        "comentario",
-                        "Você: " + textoComentario
-                    ),
-                    formComentario
-                );
+    const dados = await resposta.json();
 
-                input.value = "";
+    if (!resposta.ok) {
+        throw new Error(dados.mensagem || "Erro ao salvar comentário.");
+    }
+
+    publicacao.comentarios.push(textoComentario);
+
+    comentarios.insertBefore(
+        criarElemento(
+            "p",
+            "comentario",
+            "Você: " + textoComentario
+        ),
+        formComentario
+    );
+
+    input.value = "";
+
+} catch (erro) {
+    console.error("Erro ao salvar comentário:", erro);
+    mensagem.textContent = erro.message;
+}
             }
         );
 
@@ -247,6 +296,16 @@ async function carregarPublicacoesDoBanco() {
         }
 
         const dados = await resposta.json();
+        const respostaComentarios = await fetch(
+    "/api/comunidade/comentarios",
+    { credentials: "same-origin" }
+);
+
+if (!respostaComentarios.ok) {
+    throw new Error("Erro ao buscar comentários.");
+}
+
+const dadosComentarios = await respostaComentarios.json();
 
         publicacoes.length = 0;
 
@@ -258,7 +317,9 @@ async function carregarPublicacoesDoBanco() {
                 data: new Date(publicacao.data).toLocaleString("pt-BR"),
                 curtidas: Number(publicacao.curtidas),
                 curtiu: false,
-                comentarios: []
+              comentarios: dadosComentarios.comentarios
+    .filter(comentario => Number(comentario.id_publicacao) === Number(publicacao.id))
+    .map(comentario => comentario.autor + ": " + comentario.texto)
             });
         });
 

@@ -6,3 +6,8 @@ node_modules/
 
 # Arquivos do sistema
 .DS_Store
+
+# Fotos enviadas pelos usuários
+uploads/
+
+ca.pem

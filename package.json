@@ -4,8 +4,9 @@
   "description": "PROJETO TEAajuda # IDENTIDADE VISUAL Fonte: Arial Cores primárias: #fdbc03 - #0062da - #2db6fc - #fd5035",
   "main": "admin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "node server.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lannamoraes41-cloud/Projeto-TEA.git"

@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administração | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="admin.css">
+
+    <script src="admin.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+     
+<div class="logo">
+    <img
+        src="img/logo-TEAajuda.png"
+        alt="TEAjuda - Onde dúvidas encontram acolhimento"
+        class="logo-oficial"
+    >
+</div>
+
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html">▦ &nbsp; Eventos</a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html">⚙ &nbsp; Configurações</a>
+            <a href="admin.html" class="ativo">
+                ◈ &nbsp; Administração
+            </a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- PAINEL -->
+    <main class="principal admin-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                 &nbsp; Administrador
+            </div>
+        </header>
+
+        <section class="admin-cabecalho">
+            <span class="admin-etiqueta">
+                Gestão da plataforma
+            </span>
+
+            <h2>Painel Administrativo 💙</h2>
+
+            <p>
+                Acompanhe os indicadores e gerencie
+                os conteúdos do TEAjuda.
+            </p>
+        </section>
+
+        <!-- INDICADORES -->
+        <section class="indicadores-admin"
+                 aria-label="Indicadores da plataforma">
+
+            <article class="indicador">
+                <span>👥 Usuários</span>
+                <strong id="total-usuarios">0</strong>
+                <small>Cadastros de exemplo</small>
+            </article>
+
+            <article class="indicador">
+                <span>💬 Publicações</span>
+                <strong id="total-publicacoes">0</strong>
+                <small>Registros de exemplo</small>
+            </article>
+
+            <article class="indicador">
+                <span>❓ Dúvidas</span>
+                <strong id="total-duvidas">0</strong>
+                <small>Perguntas de exemplo</small>
+            </article>
+
+            <article class="indicador">
+                <span>📅 Eventos</span>
+                <strong id="total-eventos-admin">0</strong>
+                <small>Eventos de exemplo</small>
+            </article>
+        </section>
+
+        <!-- GERENCIAMENTO -->
+        <section class="gerenciamento-admin">
+
+            <div class="gerenciamento-topo">
+                <div>
+                    <h3>Gerenciamento</h3>
+                    <p>
+                        Consulte e organize os registros
+                        demonstrativos da plataforma.
+                    </p>
+                </div>
+            </div>
+
+            <div class="abas-admin"
+                 aria-label="Selecionar área de gerenciamento">
+
+                <button type="button"
+                        class="aba-admin ativa"
+                        data-tipo="usuarios"
+                        aria-pressed="true">
+                    Usuários
+                </button>
+
+                <button type="button"
+                        class="aba-admin"
+                        data-tipo="publicacoes"
+                        aria-pressed="false">
+                    Publicações
+                </button>
+
+                <button type="button"
+                        class="aba-admin"
+                        data-tipo="duvidas"
+                        aria-pressed="false">
+                    Dúvidas
+                </button>
+
+                <button type="button"
+                        class="aba-admin"
+                        data-tipo="eventos"
+                        aria-pressed="false">
+                    Eventos
+                </button>
+            </div>
+
+            <label for="pesquisa-admin"
+                   class="label-pesquisa-admin">
+                Pesquisar registros
+            </label>
+
+            <input type="search"
+                   id="pesquisa-admin"
+                   placeholder="Digite um nome ou assunto...">
+
+            <div class="tabela-admin-container">
+                <table class="tabela-admin">
+                    <thead>
+                        <tr>
+                            <th scope="col">Registro</th>
+                            <th scope="col">Informação</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="corpo-tabela-admin"></tbody>
+                </table>
+            </div>
+
+            <p id="mensagem-admin"
+               role="status"
+               aria-live="polite"></p>
+
+            <!-- CONFIRMAÇÃO DE EXCLUSÃO -->
+            <div id="confirmacao-exclusao"
+                 class="confirmacao-exclusao"
+                 hidden>
+
+                <p id="texto-confirmacao"></p>
+
+                <div class="botoes-confirmacao">
+                    <button type="button"
+                            id="cancelar-exclusao"
+                            class="btn-secundario">
+                        Cancelar
+                    </button>
+
+                    <button type="button"
+                            id="confirmar-exclusao"
+                            class="btn-perigo">
+                        Confirmar exclusão
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            TEAjuda — Onde dúvidas encontram acolhimento. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>

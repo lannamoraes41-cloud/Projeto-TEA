@@ -59,7 +59,7 @@ const upload = multer({
         }
     }
 });
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const db = require("./db");
 const bcrypt = require("bcrypt");
@@ -424,6 +424,41 @@ app.post("/api/perfil/foto", (req, res) => {
 
  // BUSCAR PUBLICAÇÕES DA COMUNIDADE NO MYSQL
 app.get("/api/comunidade/publicacoes", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const [publicacoes] = await db.query(`
+            SELECT
+                p.id_publicacao AS id,
+                p.conteudo AS texto,
+                p.data_publicacao AS data,
+                u.nome AS autor,
+                COUNT(DISTINCT c.id_curtida) AS curtidas
+            FROM publicacoes p
+            JOIN usuarios u ON u.id_usuario = p.id_usuario
+            LEFT JOIN curtidas c
+                ON c.id_publicacao = p.id_publicacao
+            GROUP BY
+                p.id_publicacao,
+                p.conteudo,
+                p.data_publicacao,
+                u.nome
+            ORDER BY p.data_publicacao DESC
+        `);
+
+        return res.json({ publicacoes });
+
+    } catch (erro) {
+        console.error("Erro ao buscar publicações:", erro);
+
+        return res.status(500).json({
+            mensagem: "Erro ao carregar publicações."
+        });
+    }
 });
  // SALVAR NOVA PUBLICAÇÃO NO MYSQL
 app.post("/api/comunidade/publicacoes", async (req, res) => {
@@ -461,7 +496,138 @@ app.post("/api/comunidade/publicacoes", async (req, res) => {
     }
 });
 
+// CURTIR OU RETIRAR CURTIDA DE UMA PUBLICAÇÃO
+app.post("/api/comunidade/publicacoes/:id/curtir", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
 
+        const idPublicacao = Number(req.params.id);
+        const idUsuario = req.session.usuario.id;
+
+        if (!Number.isInteger(idPublicacao) || idPublicacao <= 0) {
+            return res.status(400).json({
+                mensagem: "Publicação inválida."
+            });
+        }
+
+        const [resultado] = await db.query(
+            `INSERT INTO curtidas (id_publicacao, id_usuario)
+             VALUES (?, ?)
+             ON DUPLICATE KEY UPDATE id_curtida = id_curtida`,
+            [idPublicacao, idUsuario]
+        );
+
+        let curtiu = true;
+
+        if (resultado.affectedRows === 0) {
+            await db.query(
+                `DELETE FROM curtidas
+                 WHERE id_publicacao = ? AND id_usuario = ?`,
+                [idPublicacao, idUsuario]
+            );
+
+            curtiu = false;
+        }
+
+        const [contagem] = await db.query(
+            `SELECT COUNT(*) AS total
+             FROM curtidas
+             WHERE id_publicacao = ?`,
+            [idPublicacao]
+        );
+
+        return res.json({
+            curtiu,
+            curtidas: Number(contagem[0].total)
+        });
+
+    } catch (erro) {
+        console.error("Erro ao salvar curtida:", erro);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível salvar a curtida."
+        });
+    }
+});
+// SALVAR COMENTÁRIO DE UMA PUBLICAÇÃO NO MYSQL
+app.post("/api/comunidade/publicacoes/:id/comentarios", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const idPublicacao = Number(req.params.id);
+        const idUsuario = req.session.usuario.id;
+        const conteudo = req.body?.conteudo;
+
+        if (!Number.isInteger(idPublicacao) || idPublicacao <= 0) {
+            return res.status(400).json({
+                mensagem: "Publicação inválida."
+            });
+        }
+
+        if (typeof conteudo !== "string" || !conteudo.trim()) {
+            return res.status(400).json({
+                mensagem: "Escreva um comentário."
+            });
+        }
+
+        const [resultado] = await db.query(
+            `INSERT INTO comentarios (id_publicacao, id_usuario, conteudo)
+             VALUES (?, ?, ?)`,
+            [idPublicacao, idUsuario, conteudo.trim()]
+        );
+
+        return res.status(201).json({
+            mensagem: "Comentário salvo com sucesso!",
+            id: resultado.insertId
+        });
+
+    } catch (erro) {
+        console.error("Erro ao salvar comentário:", erro);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível salvar o comentário."
+        });
+    }
+});
+// BUSCAR COMENTÁRIOS SALVOS NO MYSQL
+app.get("/api/comunidade/comentarios", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const [comentarios] = await db.query(`
+            SELECT
+                c.id_comentario AS id,
+                c.id_publicacao,
+                c.conteudo AS texto,
+                c.data_comentario AS data,
+                u.nome AS autor
+            FROM comentarios c
+            JOIN usuarios u ON u.id_usuario = c.id_usuario
+            ORDER BY c.data_comentario ASC, c.id_comentario ASC
+        `);
+
+        return res.json({ comentarios });
+
+    } catch (erro) {
+        console.error("Erro ao buscar comentários:", erro);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível carregar os comentários."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Servidor TEAjuda rodando na porta ${PORT}`);
 });

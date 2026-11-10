@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Eventos | TEAjuda</title>
+
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="eventos.css">
+
+    <script src="eventos.js" defer></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="menu-lateral">
+
+       
+<div class="logo">
+    <img
+        src="img/logo-TEAajuda.png"
+        alt="TEAjuda - Onde dúvidas encontram acolhimento"
+        class="logo-oficial"
+    >
+</div>
+
+
+        <nav class="navegacao">
+            <a href="inicio.html">⌂ &nbsp; Início</a>
+            <a href="comunidade.html">♧ &nbsp; Comunidade</a>
+            <a href="duvidas.html">☏ &nbsp; Dúvidas</a>
+            <a href="conteudos.html">▤ &nbsp; Conteúdos</a>
+            <a href="eventos.html" class="ativo">
+                ▦ &nbsp; Eventos
+            </a>
+            <a href="recursos.html">▱ &nbsp; Recursos</a>
+            <a href="perfil.html">♙ &nbsp; Meu Perfil</a>
+            <a href="configuracoes.html">⚙ &nbsp; Configurações</a>
+            <hr>
+            <a href="login.html">⇥ &nbsp; Sair</a>
+        </nav>
+
+        <p class="mensagem-lateral">
+            Mais respeito<br>
+            Mais empatia<br>
+            Mais inclusão<br>
+            Mais vida ♡
+        </p>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="principal eventos-principal">
+
+        <header class="topo">
+            <div class="usuario">
+                👤 &nbsp; Olá, Usuário(a)
+            </div>
+        </header>
+
+        <section class="eventos-cabecalho">
+            <span class="etiqueta-eventos">
+                Aprendizado e conexão
+            </span>
+
+            <h2>Eventos e Encontros 💙</h2>
+
+            <p>
+                Descubra oportunidades de aprendizado,
+                troca de experiências e acolhimento.
+                Participe de encontros que aproximam pessoas.
+            </p>
+        </section>
+
+        <section class="eventos-area">
+
+            <!-- PESQUISA -->
+            <div class="pesquisa-eventos">
+                <label for="pesquisar-eventos">
+                    Encontre um evento
+                </label>
+
+                <input
+                    type="search"
+                    id="pesquisar-eventos"
+                    placeholder="Pesquise por tema, local ou modalidade..."
+                >
+            </div>
+
+            <!-- FILTROS -->
+            <div class="filtros-eventos">
+                <button type="button"
+                        class="filtro-evento ativo"
+                        data-filtro="Todos"
+                        aria-pressed="true">
+                    Todos
+                </button>
+
+                <button type="button"
+                        class="filtro-evento"
+                        data-filtro="Online"
+                        aria-pressed="false">
+                    On-line
+                </button>
+
+                <button type="button"
+                        class="filtro-evento"
+                        data-filtro="Presencial"
+                        aria-pressed="false">
+                    Presenciais
+                </button>
+            </div>
+
+            <div class="eventos-lista-topo">
+                <h3>Programação de eventos</h3>
+                <span id="total-eventos"></span>
+            </div>
+
+            <!-- CARTÕES -->
+            <div id="lista-eventos"
+                 class="grade-eventos"></div>
+
+            <!-- DETALHES -->
+            <section id="detalhes-evento"
+                     class="detalhes-evento"
+                     hidden
+                     aria-labelledby="detalhe-titulo">
+
+                <button type="button"
+                        id="fechar-detalhes"
+                        class="btn-voltar-eventos">
+                    ← Voltar aos eventos
+                </button>
+
+                <span id="detalhe-modalidade"
+                      class="modalidade-detalhe"></span>
+
+                <h3 id="detalhe-titulo"></h3>
+
+                <div class="detalhe-informacoes">
+                    <p id="detalhe-data"></p>
+                    <p id="detalhe-horario"></p>
+                    <p id="detalhe-local"></p>
+                </div>
+
+                <p id="detalhe-descricao"></p>
+
+                <button type="button"
+                        id="btn-interesse"
+                        class="btn-interesse">
+                    Tenho interesse
+                </button>
+
+                <p id="mensagem-interesse"
+                   role="status"
+                   aria-live="polite"></p>
+
+            </section>
+
+        </section>
+
+        <footer>
+            Juntos aprendemos. Juntos acolhemos. ♡
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
