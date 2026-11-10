@@ -103,7 +103,7 @@ if (formCadastro) {
 
         try {
             const resposta = await fetch(
-                "http://localhost:3000/api/cadastro",
+                  "/api/cadastro",
                 {
                     method: "POST",
                     headers: {
