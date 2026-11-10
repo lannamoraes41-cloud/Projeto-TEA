@@ -5,6 +5,13 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
+const { v2: cloudinary } = require("cloudinary");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 // CONFIGURAÇÃO DA PASTA DE FOTOS
@@ -374,6 +381,7 @@ app.put("/api/perfil", async (req, res) => {
 
 const uploadFoto = upload.single("foto");
 
+
 app.post("/api/perfil/foto", (req, res) => {
     if (!req.session.usuario) {
         return res.status(401).json({
@@ -396,32 +404,69 @@ app.post("/api/perfil/foto", (req, res) => {
             });
         }
 
-        try {
-            const caminhoFoto = "/uploads/" + req.file.filename;
+        let fotoCloudinary = null;
 
+        try {
+            // Enviar a imagem para o Cloudinary
+            fotoCloudinary = await cloudinary.uploader.upload(
+                req.file.path,
+                {
+                    folder: "teajuda/perfis",
+                    resource_type: "image"
+                }
+            );
+
+            // Guardar o endereço permanente no MySQL
             await db.query(
                 `UPDATE usuarios
                  SET foto_perfil = ?
                  WHERE id_usuario = ?`,
-                [caminhoFoto, req.session.usuario.id]
+                [
+                    fotoCloudinary.secure_url,
+                    req.session.usuario.id
+                ]
             );
 
             return res.json({
                 mensagem: "Foto atualizada com sucesso!",
-                foto: caminhoFoto
+                foto: fotoCloudinary.secure_url
             });
 
-        } catch (erroBanco) {
-            console.error("Erro ao salvar foto:", erroBanco.message);
+        } catch (erroFoto) {
+            console.error("Erro ao salvar foto:", erroFoto.message);
 
-            fs.unlink(req.file.path, () => {});
+            // Evitar imagem órfã se o banco falhar
+            if (fotoCloudinary) {
+                try {
+                    await cloudinary.uploader.destroy(
+                        fotoCloudinary.public_id
+                    );
+                } catch (erroLimpeza) {
+                    console.error(
+                        "Erro ao limpar foto:",
+                        erroLimpeza.message
+                    );
+                }
+            }
 
             return res.status(500).json({
                 mensagem: "Não foi possível salvar a foto."
             });
+
+        } finally {
+            // Apagar o arquivo temporário do servidor
+            fs.unlink(req.file.path, (erroLimpeza) => {
+                if (erroLimpeza && erroLimpeza.code !== "ENOENT") {
+                    console.error(
+                        "Erro ao remover arquivo temporário:",
+                        erroLimpeza.message
+                    );
+                }
+            });
         }
     });
 });
+
 
  // BUSCAR PUBLICAÇÕES DA COMUNIDADE NO MYSQL
 app.get("/api/comunidade/publicacoes", async (req, res) => {
