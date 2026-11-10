@@ -45,6 +45,9 @@ const upload = multer({
 
         const extensoesPermitidas = [".jpg", ".jpeg", ".png", ".webp"];
         const extensao = path.extname(file.originalname).toLowerCase();
+        console.log("Tipo da foto:", file.mimetype);
+        console.log("Extensão da foto:", extensao);
+        console.log("Nome original:", file.originalname);
 
         if (
             tiposPermitidos.includes(file.mimetype) &&
@@ -418,6 +421,46 @@ app.post("/api/perfil/foto", (req, res) => {
         }
     });
 });
+
+ // BUSCAR PUBLICAÇÕES DA COMUNIDADE NO MYSQL
+app.get("/api/comunidade/publicacoes", async (req, res) => {
+});
+ // SALVAR NOVA PUBLICAÇÃO NO MYSQL
+app.post("/api/comunidade/publicacoes", async (req, res) => {
+    try {
+        if (!req.session.usuario) {
+            return res.status(401).json({
+                mensagem: "Você precisa fazer login."
+            });
+        }
+
+        const texto = req.body.texto;
+
+        if (typeof texto !== "string" || !texto.trim()) {
+            return res.status(400).json({
+                mensagem: "Escreva uma publicação."
+            });
+        }
+
+        const [resultado] = await db.query(
+            `INSERT INTO publicacoes (id_usuario, conteudo)
+             VALUES (?, ?)`,
+            [req.session.usuario.id, texto.trim()]
+        );
+
+        return res.status(201).json({
+            mensagem: "Publicação salva com sucesso!",
+            id: resultado.insertId
+        });
+
+    } catch (erro) {
+        console.error("Erro ao salvar publicação:", erro);
+        return res.status(500).json({
+            mensagem: "Não foi possível salvar a publicação."
+        });
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor TEAjuda rodando na porta ${PORT}`);

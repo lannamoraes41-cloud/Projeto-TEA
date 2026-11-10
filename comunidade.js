@@ -37,8 +37,9 @@ campoTexto.addEventListener("input", function() {
     contador.textContent = campoTexto.value.length + "/1000";
 });
 
-// CRIAR PUBLICAÇÃO
-form.addEventListener("submit", function(evento) {
+
+ // CRIAR PUBLICAÇÃO E SALVAR NO MYSQL
+form.addEventListener("submit", async function(evento) {
     evento.preventDefault();
 
     const texto = campoTexto.value.trim();
@@ -48,19 +49,47 @@ form.addEventListener("submit", function(evento) {
         return;
     }
 
-    publicacoes.unshift({
-        id: proximoId++,
-        autor: "Você",
-        texto: texto,
-        data: new Date().toLocaleString("pt-BR"),
-        curtidas: 0,
-        curtiu: false,
-        comentarios: []
-    });
+    try {
+        const resposta = await fetch("/api/comunidade/publicacoes", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ texto: texto })
+        });
 
-    campoTexto.value = "";
-    contador.textContent = "0/1000";
-    mensagem.textContent = "Publicação adicionada ao mural.";
+        const dados = await resposta.json();
+
+        if (resposta.status === 401) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!resposta.ok) {
+            throw new Error(dados.mensagem);
+        }
+
+        publicacoes.unshift({
+            id: dados.id,
+            autor: "Você",
+            texto: texto,
+            data: new Date().toLocaleString("pt-BR"),
+            curtidas: 0,
+            curtiu: false,
+            comentarios: []
+        });
+
+        campoTexto.value = "";
+        contador.textContent = "0/1000";
+        mensagem.textContent = "Publicação salva no MySQL com sucesso!";
+
+        mostrarPublicacoes();
+
+    } catch (erro) {
+        console.error("Erro ao publicar:", erro);
+        mensagem.textContent = "Não foi possível salvar a publicação.";
+    }
 
     mostrarPublicacoes();
 });
@@ -208,3 +237,37 @@ function mostrarPublicacoes() {
 }
 
 mostrarPublicacoes();
+// CARREGAR PUBLICAÇÕES SALVAS NO MYSQL
+async function carregarPublicacoesDoBanco() {
+    try {
+        const resposta = await fetch("/api/comunidade/publicacoes");
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao buscar publicações.");
+        }
+
+        const dados = await resposta.json();
+
+        publicacoes.length = 0;
+
+        dados.publicacoes.forEach(function(publicacao) {
+            publicacoes.push({
+                id: publicacao.id,
+                autor: publicacao.autor,
+                texto: publicacao.texto,
+                data: new Date(publicacao.data).toLocaleString("pt-BR"),
+                curtidas: Number(publicacao.curtidas),
+                curtiu: false,
+                comentarios: []
+            });
+        });
+
+        mostrarPublicacoes();
+
+    } catch (erro) {
+        console.error("Erro ao carregar publicações:", erro);
+        mensagem.textContent = "Não foi possível carregar as publicações.";
+    }
+}
+
+carregarPublicacoesDoBanco();
