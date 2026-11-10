@@ -21,7 +21,7 @@ if (formulario) {
 
         try {
             const resposta = await fetch(
-                "http://localhost:3000/api/login",
+                  "/api/login",
                 {
                     method: "POST",
                     headers: {
