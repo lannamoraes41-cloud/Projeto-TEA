@@ -1,0 +1,23 @@
+/* FUNDO PADRÃO DO TEAJUDA */
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    background: linear-gradient(
+        115deg,
+        #e5f4ff 0%,
+        #f5faff 40%,
+        #ffffff 65%,
+        #fff2db 100%
+    );
+    background-attachment: fixed;
+}
+
+/* Fundo da área principal */
+.layout .principal {
+    background: transparent;
+}
