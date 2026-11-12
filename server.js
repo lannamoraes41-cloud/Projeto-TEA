@@ -184,7 +184,7 @@ app.post("/api/login", async (req, res) => {
         const emailNormalizado = email.trim().toLowerCase();
 
         const [usuarios] = await db.query(
-            "SELECT id_usuario, nome, email, senha_hash FROM usuarios WHERE email = ?",
+            "SELECT id_usuario, nome, email, senha_hash, tipo_usuario FROM usuarios WHERE email = ?",
             [emailNormalizado]
         );
 
@@ -219,11 +219,12 @@ req.session.regenerate((erroSessao) => {
         });
     }
 
-    req.session.usuario = {
-        id: usuario.id_usuario,
-        nome: usuario.nome,
-        email: usuario.email
-    };
+  req.session.usuario = {
+    id: usuario.id_usuario,
+    nome: usuario.nome,
+    email: usuario.email,
+    tipo_usuario: usuario.tipo_usuario
+};
 
     req.session.save((erroSalvar) => {
         if (erroSalvar) {
