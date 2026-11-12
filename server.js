@@ -265,7 +265,7 @@ app.get("/api/perfil", async (req, res) => {
         
        const [usuarios] = await db.query(
        
-      `SELECT id_usuario, nome, email, telefone, cidade, sobre, foto_perfil
+      `SELECT id_usuario, nome, email, telefone, cidade, sobre, foto_perfil, tipo_usuario
        FROM usuarios
        WHERE id_usuario = ?`,
        [idUsuario]
