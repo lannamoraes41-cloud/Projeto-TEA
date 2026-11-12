@@ -316,6 +316,32 @@ app.get("/api/admin/verificar", verificarAdmin, (req, res) => {
         tipo_usuario: req.tipoAdmin
     });
 });
+
+// LISTAR USUÁRIOS REAIS PARA O PAINEL ADMINISTRATIVO
+app.get("/api/admin/usuarios", verificarAdmin, async (req, res) => {
+    try {
+        const [usuarios] = await db.query(`
+            SELECT
+                id_usuario AS id,
+                nome,
+                email,
+                tipo_usuario,
+                ativo
+            FROM usuarios
+            ORDER BY id_usuario DESC
+        `);
+
+        return res.json({ usuarios });
+
+    } catch (erro) {
+        console.error("Erro ao listar usuários:", erro);
+
+        return res.status(500).json({
+            mensagem: "Não foi possível carregar os usuários."
+        });
+    }
+});
+
 app.get("/api/perfil", async (req, res) => {
     try {
         if (!req.session.usuario) {
