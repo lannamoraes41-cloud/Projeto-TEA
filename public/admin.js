@@ -4,26 +4,7 @@
 // Dados fictícios e temporários
 
 const dadosAdmin = {
-    usuarios: [
-        {
-            id: 1,
-            nome: "Mariana Silva",
-            informacao: "Membro da comunidade",
-            status: "Ativo"
-        },
-        {
-            id: 2,
-            nome: "Carlos Oliveira",
-            informacao: "Membro da comunidade",
-            status: "Ativo"
-        },
-        {
-            id: 3,
-            nome: "Ana Souza",
-            informacao: "Cadastro de exemplo",
-            status: "Pendente"
-        }
-    ],
+     usuarios: [],
 
     publicacoes: [
         {
@@ -337,6 +318,42 @@ abasAdmin.forEach(function(botao) {
 // PESQUISA
 campoPesquisa.addEventListener("input", mostrarRegistros);
 
+
+// BUSCAR USUÁRIOS REAIS NO MYSQL
+async function carregarUsuarios() {
+    try {
+        mensagemAdmin.textContent = "Carregando usuários...";
+
+        const resposta = await fetch("/api/admin/usuarios");
+
+        if (!resposta.ok) {
+            throw new Error("Não foi possível consultar os usuários.");
+        }
+
+        const dados = await resposta.json();
+
+        dadosAdmin.usuarios = dados.usuarios.map(function(usuario) {
+            return {
+                id: usuario.id,
+                nome: usuario.nome,
+                informacao: usuario.email + " | " + usuario.tipo_usuario,
+                status: usuario.ativo ? "Ativo" : "Oculto"
+            };
+        });
+
+        atualizarIndicadores();
+        mostrarRegistros();
+        mensagemAdmin.textContent = "";
+
+    } catch (erro) {
+        console.error("Erro ao carregar usuários:", erro);
+        mensagemAdmin.textContent =
+            "Não foi possível carregar os usuários do banco de dados.";
+    }
+}
+
 // INICIAR
 atualizarIndicadores();
 mostrarRegistros();
+carregarUsuarios();
+
