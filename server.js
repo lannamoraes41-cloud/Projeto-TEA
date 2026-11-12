@@ -252,6 +252,51 @@ req.session.regenerate((erroSessao) => {
     }
 });
 // CONSULTAR PERFIL DO USUÁRIO LOGADO
+// VERIFICAR SE O USUÁRIO É ADMINISTRADOR
+async function verificarAdmin(req, res, next) {
+    if (!req.session.usuario) {
+        return res.status(401).json({
+            mensagem: "Você precisa fazer login."
+        });
+    }
+
+    try {
+        const [usuarios] = await db.query(
+            "SELECT tipo_usuario FROM usuarios WHERE id_usuario = ?",
+            [req.session.usuario.id]
+        );
+
+        if (usuarios.length === 0) {
+            return res.status(403).json({
+                mensagem: "Acesso não autorizado."
+            });
+        }
+
+        const tipo = usuarios[0].tipo_usuario;
+
+        if (tipo !== "admin" && tipo !== "admin_principal") {
+            return res.status(403).json({
+                mensagem: "Acesso permitido somente para administradores."
+            });
+        }
+
+        req.tipoAdmin = tipo;
+        next();
+
+    } catch (erro) {
+        console.error("Erro ao verificar administrador:", erro);
+        return res.status(500).json({
+            mensagem: "Erro ao verificar permissões."
+        });
+    }
+}
+// TESTAR ACESSO ADMINISTRATIVO
+app.get("/api/admin/verificar", verificarAdmin, (req, res) => {
+    res.json({
+        mensagem: "Acesso administrativo autorizado!",
+        tipo_usuario: req.tipoAdmin
+    });
+});
 app.get("/api/perfil", async (req, res) => {
     try {
         if (!req.session.usuario) {
