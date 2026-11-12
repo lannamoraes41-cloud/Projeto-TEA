@@ -66,12 +66,15 @@ const upload = multer({
         }
     }
 });
+
+// CONFIGURAÇÕES DO SERVIDOR
 app.set("trust proxy", 1);
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const db = require("./db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+
+// CONFIGURAÇÃO DA SESSÃO DO USUÁRIO
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -83,6 +86,22 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 2
     }
 }));
+
+// PROTEGER O PAINEL ADMINISTRATIVO
+app.use("/admin.html", (req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") {
+        return res.sendStatus(405);
+    }
+
+    return verificarAdmin(req, res, next);
+});
+
+// DISPONIBILIZAR OS ARQUIVOS DO SITE
+app.use(express.static(path.join(__dirname, "public")));
+
+// DISPONIBILIZAR FOTOS TEMPORÁRIAS
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 app.get("/teste-banco", async (req, res) => {
     try {
